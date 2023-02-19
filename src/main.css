@@ -1,0 +1,5 @@
+@import url("./styles/colors.css");
+@import url("./styles/fonts.css");
+@import url("./styles/globals.css");
+
+@import url("./styles/components/page.css");
