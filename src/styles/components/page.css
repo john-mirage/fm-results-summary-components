@@ -2,24 +2,15 @@
   --_page-color: var(--color-background);
 
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: var(--_page-color);
-}
-
-.page__card {
-  margin-bottom: 48px;
+  padding: 48px 16px;
 }
 
 @media screen and (min-width: 832px) {
   .page {
-    justify-content: center;
     padding: 48px;
-  }
-
-  .page__card {
-    margin-bottom: 0;
   }
 }
