@@ -72,14 +72,6 @@
       .text {
         margin-top: 0;
       }
-      .text--display-large {
-        margin-bottom: 0;
-        font-family: var(--font-display-large-font-family);
-        font-weight: var(--font-display-large-font-weight);
-        font-size: var(--font-display-large-font-size);
-        line-height: var(--font-display-large-line-height);
-        letter-spacing: var(--font-display-large-letter-spacing);
-      }
       .text--title-large {
         margin-bottom: 8px;
         font-family: var(--font-title-large-font-family);
@@ -113,22 +105,11 @@
         line-height: var(--font-label-medium-line-height);
         letter-spacing: var(--font-label-medium-letter-spacing);
       }
-      .text--label-large {
-        margin-bottom: 0;
-        font-family: var(--font-label-large-font-family);
-        font-weight: var(--font-label-large-font-weight);
-        font-size: var(--font-label-large-font-size);
-        line-height: var(--font-label-large-line-height);
-        letter-spacing: var(--font-label-large-letter-spacing);
-      }
       .text--on-primary-variant {
         color: var(--color-on-primary-variant);
       }
       .text--on-primary {
         color: var(--color-on-primary);
-      }
-      .text--on-secondary {
-        color: var(--color-on-secondary);
       }
       .text--on-surface {
         color: var(--color-on-surface);
@@ -142,25 +123,6 @@
         gap: 16px;
         width: 100%;
         padding: 0;
-      }
-      .score {
-        box-sizing: border-box;
-        margin-bottom: 24px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 140px;
-        height: 140px;
-        border-radius: 9999px;
-        background: var(--color-primary-variant);
-      }
-      .button {
-        width: 100%;
-        height: 56px;
-        border-radius: 9999px;
-        background-color: var(--color-secondary);
-        border: none;
       }
       @media screen and (min-width: 832px) {
         :host {
@@ -211,12 +173,9 @@
     </style>
     <div class="section section--left">
       <h1 class="text text--title-medium text--on-primary-variant">Your result</h1>
-      <div class="score">
-        <p class="text text--display-large text--on-primary score__value">76</p>
-        <p class="text text--label-medium text--on-primary-variant">of 100</p>
-      </div>
+      <web-card-score></web-card-score>
       <h2 class="text text--title-large text--on-primary">Great</h2>
-      <p class="text text--body-large text--on-primary-variant">Your performance exceed <span>65%</span> of the people conducting the test here!</p>
+      <p class="text text--body-large text--on-primary-variant">Your performance exceed <span data-js="performance">65%</span> of the people conducting the test here!</p>
     </div>
     <div class="section section--right">
       <h2 class="text text--title-medium text--on-surface">Summary</h2>
@@ -226,8 +185,87 @@
         <web-card-category empty></web-card-category>
         <web-card-category empty></web-card-category>
       </ul>
-      <button class="button text text--label-large text--on-secondary">Continue</button>
+      <web-card-button class="button">Continue</web-card-button>
     </div>
+  </template>
+
+  <template id="template-web-card-score">
+    <style>
+      @keyframes load {
+        to { transform: rotate(1turn) }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      :host {
+        box-sizing: border-box;
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 140px;
+        height: 140px;
+        border-radius: 9999px;
+        background: var(--color-primary-variant);
+      }
+      .value {
+        flex: 0 0 auto;
+      }
+      .value:empty {
+        margin-top: calc((var(--font-display-large-line-height) - var(--font-display-large-font-size)) / 2);
+        margin-bottom: calc((var(--font-display-large-line-height) - var(--font-display-large-font-size)) / 2);
+        width: var(--font-display-large-font-size);
+        height: var(--font-display-large-font-size);
+        padding: calc(var(--font-display-large-font-size) / 8);
+        background: var(--color-on-primary);
+        border-radius: 9999px;
+        --_m: 
+          conic-gradient(#0000,#000),
+          linear-gradient(#000 0 0) content-box;
+        -webkit-mask: var(--_m);
+                mask: var(--_m);
+        -webkit-mask-composite: source-out;
+                mask-composite: subtract;
+        box-sizing: border-box;
+        animation: load 1s linear infinite;
+      }
+      .text {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .text--display-large {
+        font-family: var(--font-display-large-font-family);
+        font-weight: var(--font-display-large-font-weight);
+        font-size: var(--font-display-large-font-size);
+        line-height: var(--font-display-large-line-height);
+        letter-spacing: var(--font-display-large-letter-spacing);
+      }
+      .text--label-medium {
+        font-family: var(--font-label-medium-font-family);
+        font-weight: var(--font-label-medium-font-weight);
+        font-size: var(--font-label-medium-font-size);
+        line-height: var(--font-label-medium-line-height);
+        letter-spacing: var(--font-label-medium-letter-spacing);
+      }
+      .text--on-primary {
+        color: var(--color-on-primary);
+      }
+      .text--on-primary-variant {
+        color: var(--color-on-primary-variant);
+      }
+      @media screen and (min-width: 832px) {
+        :host {
+          margin-bottom: 28px;
+          width: 200px;
+          height: 200px;
+        }
+      }
+    </style>
+    <p class="value text text--display-large text--on-primary" data-js="value"></p>
+    <p class="text text--label-medium text--on-primary-variant">of 100</p>
   </template>
 
   <template id="template-web-card-category">
@@ -289,14 +327,38 @@
         height: 20px;
         color: var(--_card-category-color);
       }
+      .icon:empty {
+        animation: var(--_card-skeleton-animation);
+        background-color: var(--_card-skeleton-background-color);
+        border-radius: 9999px;
+      }
       .label {
         flex: 0 1 auto;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+      .label:empty {
+        margin-top: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
+        margin-bottom: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
+        animation: var(--_card-skeleton-animation);
+        background-color: var(--_card-skeleton-background-color);
+        width: 100%;
+        height: var(--font-body-large-font-size);
+        border-radius: 9999px;
+      }
       .value {
         flex: 1;
+      }
+      .value:empty {
+        display: inline-block;
+        margin-top: calc(var(--font-label-medium-line-height) - var(--font-label-medium-font-size));
+        margin-bottom: calc(var(--font-label-medium-line-height) - var(--font-label-medium-font-size));
+        animation: var(--_card-skeleton-animation);
+        background-color: var(--_card-skeleton-background-color);
+        width: 2rem;
+        height: var(--font-label-medium-font-size);
+        border-radius: 9999px;
       }
       .max-value {
         flex: 0 0 auto;
@@ -328,30 +390,6 @@
       .text--on-surface-variant {
         color: var(--color-on-surface-variant);
       }
-      :host([empty]) .icon {
-        animation: var(--_card-skeleton-animation);
-        background-color: var(--_card-skeleton-background-color);
-        border-radius: 9999px;
-      }
-      :host([empty]) .label {
-        margin-top: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
-        margin-bottom: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
-        animation: var(--_card-skeleton-animation);
-        background-color: var(--_card-skeleton-background-color);
-        width: 100%;
-        height: var(--font-body-large-font-size);
-        border-radius: 9999px;
-      }
-      :host([empty]) .value {
-        display: inline-block;
-        margin-top: calc(var(--font-label-medium-line-height) - var(--font-label-medium-font-size));
-        margin-bottom: calc(var(--font-label-medium-line-height) - var(--font-label-medium-font-size));
-        animation: var(--_card-skeleton-animation);
-        background-color: var(--_card-skeleton-background-color);
-        width: 2rem;
-        height: var(--font-label-medium-font-size);
-        border-radius: 9999px;
-      }
     </style>
     <div class="section section--left">
       <div class="icon" data-js="icon"></div>
@@ -361,6 +399,75 @@
       <p class="value text text--label-medium text--on-surface" data-js="value"></p>
       <p class="max-value text text--label-medium text--on-surface-variant">/ 100</p>
     </div>
+  </template>
+
+  <template id="template-web-card-button">
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      :host {
+        display: block;
+        width: 100%;
+      }
+      .button {
+        position: relative;
+        width: 100%;
+        min-height: 56px;
+        padding: 8px 16px;
+        border-radius: 9999px;
+        overflow: hidden;
+        background-color: var(--color-secondary);
+        border: none;
+        cursor: pointer;
+      }
+      .button__overlay {
+        display: block;
+        position: absolute;
+        z-index: 10;
+        inset: 0;
+        visibility: hidden;
+        opacity: 0;
+        background: var(--color-primary);
+      }
+      .text {
+        position: relative;
+        z-index: 20;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .text--label-large {
+        margin-bottom: 0;
+        font-family: var(--font-label-large-font-family);
+        font-weight: var(--font-label-large-font-weight);
+        font-size: var(--font-label-large-font-size);
+        line-height: var(--font-label-large-line-height);
+        letter-spacing: var(--font-label-large-letter-spacing);
+      }
+      .text--on-secondary {
+        color: var(--color-on-secondary);
+      }
+      @media screen and (hover: hover) {
+        .button:hover .button__overlay {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+      @media screen and (prefers-reduced-motion: no-preference) {
+        .button__overlay {
+          transition-property: visibility, opacity;
+          transition-duration: 150ms;
+        }
+      }
+    </style>
+    <button class="button">
+      <span class="button__overlay"></span>
+      <span class="text text--label-large text--on-secondary">
+        <slot></slot>
+      </span>
+    </button>
   </template>
 
   <template id="template-icon-reaction">
