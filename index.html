@@ -173,17 +173,17 @@
     </style>
     <div class="section section--left">
       <h1 class="text text--title-medium text--on-primary-variant">Your result</h1>
-      <web-card-score></web-card-score>
+      <web-card-score score="76"></web-card-score>
       <h2 class="text text--title-large text--on-primary">Great</h2>
       <p class="text text--body-large text--on-primary-variant">Your performance exceed <span data-js="performance">65%</span> of the people conducting the test here!</p>
     </div>
     <div class="section section--right">
       <h2 class="text text--title-medium text--on-surface">Summary</h2>
       <ul class="list">
-        <web-card-category empty></web-card-category>
-        <web-card-category empty></web-card-category>
-        <web-card-category empty></web-card-category>
-        <web-card-category empty></web-card-category>
+        <web-card-category category="Reaction" score="80" icon="reaction" color="red"></web-card-category>
+        <web-card-category category="Memory" score="92" icon="memory" color="yellow"></web-card-category>
+        <web-card-category category="Verbal" score="61" icon="verbal" color="green"></web-card-category>
+        <web-card-category category="Visual" score="72" icon="visual" color="blue"></web-card-category>
       </ul>
       <web-card-button class="button">Continue</web-card-button>
     </div>
@@ -211,10 +211,10 @@
         border-radius: 9999px;
         background: var(--color-primary-variant);
       }
-      .value {
+      .score {
         flex: 0 0 auto;
       }
-      .value:empty {
+      .score:empty {
         margin-top: calc((var(--font-display-large-line-height) - var(--font-display-large-font-size)) / 2);
         margin-bottom: calc((var(--font-display-large-line-height) - var(--font-display-large-font-size)) / 2);
         width: var(--font-display-large-font-size);
@@ -264,7 +264,7 @@
         }
       }
     </style>
-    <p class="value text text--display-large text--on-primary" data-js="value"></p>
+    <p class="score text text--display-large text--on-primary" data-js="score"></p>
     <p class="text text--label-medium text--on-primary-variant">of 100</p>
   </template>
 
@@ -304,6 +304,26 @@
         border-radius: 12px;
         background-color: var(--_card-category-background-color);
       }
+      :host([color="red"]) {
+        --_card-category-color-hue: 0;
+        --_card-category-color-saturation: 100%;
+        --_card-category-color-lightness: 67%;
+      }
+      :host([color="yellow"]) {
+        --_card-category-color-hue: 40;
+        --_card-category-color-saturation: 100%;
+        --_card-category-color-lightness: 56%;
+      }
+      :host([color="green"]) {
+        --_card-category-color-hue: 166;
+        --_card-category-color-saturation: 100%;
+        --_card-category-color-lightness: 36%;
+      }
+      :host([color="blue"]) {
+        --_card-category-color-hue: 234;
+        --_card-category-color-saturation: 85%;
+        --_card-category-color-lightness: 45%;
+      }
       .section {
         display: flex;
         flex-direction: row;
@@ -332,13 +352,13 @@
         background-color: var(--_card-skeleton-background-color);
         border-radius: 9999px;
       }
-      .label {
+      .category {
         flex: 0 1 auto;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      .label:empty {
+      .category:empty {
         margin-top: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
         margin-bottom: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
         animation: var(--_card-skeleton-animation);
@@ -347,10 +367,10 @@
         height: var(--font-body-large-font-size);
         border-radius: 9999px;
       }
-      .value {
+      .score {
         flex: 1;
       }
-      .value:empty {
+      .score:empty {
         display: inline-block;
         margin-top: calc(var(--font-label-medium-line-height) - var(--font-label-medium-font-size));
         margin-bottom: calc(var(--font-label-medium-line-height) - var(--font-label-medium-font-size));
@@ -360,7 +380,7 @@
         height: var(--font-label-medium-font-size);
         border-radius: 9999px;
       }
-      .max-value {
+      .max-score {
         flex: 0 0 auto;
       }
       .text {
@@ -393,11 +413,11 @@
     </style>
     <div class="section section--left">
       <div class="icon" data-js="icon"></div>
-      <p class="label text text--body-large text--on-category" data-js="label"></p>
+      <p class="category text text--body-large text--on-category" data-js="category"></p>
     </div>
     <div class="section section--right">
-      <p class="value text text--label-medium text--on-surface" data-js="value"></p>
-      <p class="max-value text text--label-medium text--on-surface-variant">/ 100</p>
+      <p class="score text text--label-medium text--on-surface" data-js="score"></p>
+      <p class="max-score text text--label-medium text--on-surface-variant">/ 100</p>
     </div>
   </template>
 
@@ -472,28 +492,28 @@
 
   <template id="template-icon-reaction">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
-      <path stroke="#F55" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M10.833 8.333V2.5l-6.666 9.167h5V17.5l6.666-9.167h-5Z"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M10.833 8.333V2.5l-6.666 9.167h5V17.5l6.666-9.167h-5Z"/>
     </svg>
   </template>
 
   <template id="template-icon-memory">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
-      <path stroke="#FFB21E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M5.833 11.667a2.5 2.5 0 1 0 .834 4.858"/>
-      <path stroke="#FFB21E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M3.553 13.004a3.333 3.333 0 0 1-.728-5.53m.025-.067a2.083 2.083 0 0 1 2.983-2.824m.199.054A2.083 2.083 0 1 1 10 3.75v12.917a1.667 1.667 0 0 1-3.333 0M10 5.833a2.5 2.5 0 0 0 2.5 2.5m1.667 3.334a2.5 2.5 0 1 1-.834 4.858"/>
-      <path stroke="#FFB21E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M16.447 13.004a3.334 3.334 0 0 0 .728-5.53m-.025-.067a2.083 2.083 0 0 0-2.983-2.824M10 3.75a2.085 2.085 0 0 1 2.538-2.033 2.084 2.084 0 0 1 1.43 2.92m-.635 12.03a1.667 1.667 0 0 1-3.333 0"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M5.833 11.667a2.5 2.5 0 1 0 .834 4.858"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M3.553 13.004a3.333 3.333 0 0 1-.728-5.53m.025-.067a2.083 2.083 0 0 1 2.983-2.824m.199.054A2.083 2.083 0 1 1 10 3.75v12.917a1.667 1.667 0 0 1-3.333 0M10 5.833a2.5 2.5 0 0 0 2.5 2.5m1.667 3.334a2.5 2.5 0 1 1-.834 4.858"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M16.447 13.004a3.334 3.334 0 0 0 .728-5.53m-.025-.067a2.083 2.083 0 0 0-2.983-2.824M10 3.75a2.085 2.085 0 0 1 2.538-2.033 2.084 2.084 0 0 1 1.43 2.92m-.635 12.03a1.667 1.667 0 0 1-3.333 0"/>
     </svg>
   </template>
 
   <template id="template-icon-verbal">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
-      <path stroke="#00BB8F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M7.5 10h5M10 18.333A8.333 8.333 0 1 0 1.667 10c0 1.518.406 2.942 1.115 4.167l-.699 3.75 3.75-.699A8.295 8.295 0 0 0 10 18.333Z"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M7.5 10h5M10 18.333A8.333 8.333 0 1 0 1.667 10c0 1.518.406 2.942 1.115 4.167l-.699 3.75 3.75-.699A8.295 8.295 0 0 0 10 18.333Z"/>
     </svg>
   </template>
 
   <template id="template-icon-visual">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
-      <path stroke="#1125D6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M10 11.667a1.667 1.667 0 1 0 0-3.334 1.667 1.667 0 0 0 0 3.334Z"/>
-      <path stroke="#1125D6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M17.5 10c-1.574 2.492-4.402 5-7.5 5s-5.926-2.508-7.5-5C4.416 7.632 6.66 5 10 5s5.584 2.632 7.5 5Z"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M10 11.667a1.667 1.667 0 1 0 0-3.334 1.667 1.667 0 0 0 0 3.334Z"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M17.5 10c-1.574 2.492-4.402 5-7.5 5s-5.926-2.508-7.5-5C4.416 7.632 6.66 5 10 5s5.584 2.632 7.5 5Z"/>
     </svg>
   </template>
 
