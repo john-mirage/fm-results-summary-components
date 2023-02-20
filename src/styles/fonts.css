@@ -68,3 +68,13 @@
   --font-label-medium-line-height: 24px;
   --font-label-medium-letter-spacing: 0;
 }
+
+@media screen and (min-width: 832px) {
+  :root {
+    --font-display-large-font-size: 72px;
+    --font-title-medium-font-size: 24px;
+    --font-title-large-font-size: 32px;
+    --font-body-large-font-size: 18px;
+    --font-label-medium-font-size: 18px;
+  }
+}

@@ -7,6 +7,7 @@
   --color-dark-navy: hsl(224, 30%, 27%);
   --color-dark-blue: hsl(256, 72%, 46%);
   --color-gray: hsl(236, 8%, 63%);
+  --color-light-gray: hsl(236, 8%, 82%);
   --color-shadow: hsla(224, 82%, 58%, 15%);
 
   --color-background: var(--color-very-light-blue);
@@ -20,4 +21,5 @@
   --color-secondary: var(--color-dark-navy);
   --color-on-secondary: var(--color-white);
   --color-on-secondary-variant: var(--color-light-blue);
+  --color-outline: var(--color-light-gray);
 }
