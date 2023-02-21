@@ -114,6 +114,16 @@
       .text--on-surface {
         color: var(--color-on-surface);
       }
+      .performance:empty::before {
+        content: "Your performance exceed 100% of the people conducting the test here!";
+        display: inline;
+        color: transparent;
+        background-color: var(--color-on-primary-variant);
+        border-radius: 9999px;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        user-select: none;
+      }
       .list {
         margin: 0 0 24px 0;
         display: flex;
@@ -176,7 +186,7 @@
       <h1 class="text text--title-medium text--on-primary-variant">Your result</h1>
       <web-card-score></web-card-score>
       <h2 class="text text--title-large text--on-primary">Great</h2>
-      <p class="text text--body-large text--on-primary-variant">Your performance exceed <span data-js="performance">65%</span> of the people conducting the test here!</p>
+      <p class="performance text text--body-large text--on-primary-variant"></p>
     </div>
     <div class="section section--right">
       <h2 class="text text--title-medium text--on-surface">Summary</h2>
