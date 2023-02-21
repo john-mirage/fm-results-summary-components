@@ -123,6 +123,7 @@
         gap: 16px;
         width: 100%;
         padding: 0;
+        list-style: none;
       }
       @media screen and (min-width: 832px) {
         :host {
@@ -173,17 +174,25 @@
     </style>
     <div class="section section--left">
       <h1 class="text text--title-medium text--on-primary-variant">Your result</h1>
-      <web-card-score score="76"></web-card-score>
+      <web-card-score></web-card-score>
       <h2 class="text text--title-large text--on-primary">Great</h2>
       <p class="text text--body-large text--on-primary-variant">Your performance exceed <span data-js="performance">65%</span> of the people conducting the test here!</p>
     </div>
     <div class="section section--right">
       <h2 class="text text--title-medium text--on-surface">Summary</h2>
       <ul class="list">
-        <web-card-category category="Reaction" score="80" icon="reaction" color="red"></web-card-category>
-        <web-card-category category="Memory" score="92" icon="memory" color="yellow"></web-card-category>
-        <web-card-category category="Verbal" score="61" icon="verbal" color="green"></web-card-category>
-        <web-card-category category="Visual" score="72" icon="visual" color="blue"></web-card-category>
+        <li class="list__item">
+          <web-card-category></web-card-category>
+        </li>
+        <li class="list__item">
+          <web-card-category></web-card-category>
+        </li>
+        <li class="list__item">
+          <web-card-category></web-card-category>
+        </li>
+        <li class="list__item">
+          <web-card-category></web-card-category>
+        </li>
       </ul>
       <web-card-button class="button">Continue</web-card-button>
     </div>
@@ -352,13 +361,13 @@
         background-color: var(--_card-skeleton-background-color);
         border-radius: 9999px;
       }
-      .category {
+      .name {
         flex: 0 1 auto;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
-      .category:empty {
+      .name:empty {
         margin-top: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
         margin-bottom: calc(var(--font-body-large-line-height) - var(--font-body-large-font-size));
         animation: var(--_card-skeleton-animation);
@@ -413,7 +422,7 @@
     </style>
     <div class="section section--left">
       <div class="icon" data-js="icon"></div>
-      <p class="category text text--body-large text--on-category" data-js="category"></p>
+      <p class="name text text--body-large text--on-category" data-js="name"></p>
     </div>
     <div class="section section--right">
       <p class="score text text--label-medium text--on-surface" data-js="score"></p>

@@ -1,24 +1,24 @@
 [
   {
-    "category": "Reaction",
+    "name": "Reaction",
     "score": 80,
     "icon": "reaction",
     "color": "red"
   },
   {
-    "category": "Memory",
+    "name": "Memory",
     "score": 92,
     "icon": "memory",
     "color": "yellow"
   },
   {
-    "category": "Verbal",
+    "name": "Verbal",
     "score": 61,
     "icon": "verbal",
     "color": "green"
   },
   {
-    "category": "Visual",
+    "name": "Visual",
     "score": 72,
     "icon": "visual",
     "color": "blue"

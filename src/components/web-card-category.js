@@ -1,12 +1,12 @@
 class WebCardCategory extends HTMLElement {
   #hasBeenMountedOnce = false;
   #iconMap = new Map();
+  #nameElement;
   #iconElement;
-  #categoryElement;
   #scoreElement;
 
   static get observedAttributes() {
-    return ["category", "score", "icon"];
+    return ["name", "score", "icon"];
   }
 
   constructor() {
@@ -14,20 +14,20 @@ class WebCardCategory extends HTMLElement {
     const template = document.getElementById("template-web-card-category");
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.append(template.content.cloneNode(true));
+    this.#nameElement = shadowRoot.querySelector('[data-js="name"]');
     this.#iconElement = shadowRoot.querySelector('[data-js="icon"]');
-    this.#categoryElement = shadowRoot.querySelector('[data-js="category"]');
     this.#scoreElement = shadowRoot.querySelector('[data-js="score"]');
   }
 
-  get category() {
-    return this.getAttribute("category") ?? undefined;
+  get name() {
+    return this.getAttribute("name") ?? undefined;
   }
 
-  set category(newCategory) {
-    if (typeof newCategory === "string") {
-      this.setAttribute(newCategory);
+  set name(newName) {
+    if (typeof newName === "string") {
+      this.setAttribute("name", newName);
     } else {
-      this.removeAttribute("category");
+      this.removeAttribute("name");
     }
   }
 
@@ -37,7 +37,7 @@ class WebCardCategory extends HTMLElement {
 
   set score(newScore) {
     if (typeof newScore === "string") {
-      this.setAttribute(newScore);
+      this.setAttribute("score", newScore);
     } else {
       this.removeAttribute("score");
     }
@@ -49,9 +49,21 @@ class WebCardCategory extends HTMLElement {
 
   set icon(newIcon) {
     if (typeof newIcon === "string") {
-      this.setAttribute(newIcon);
+      this.setAttribute("icon", newIcon);
     } else {
       this.removeAttribute("icon");
+    }
+  }
+
+  get color() {
+    return this.getAttribute("color") ?? undefined;
+  }
+
+  set color(newColor) {
+    if (typeof newColor === "string") {
+      this.setAttribute("color", newColor);
+    } else {
+      this.removeAttribute("color");
     }
   }
 
@@ -71,8 +83,8 @@ class WebCardCategory extends HTMLElement {
     }
   }
 
-  #handleCategory(newCategory) {
-    this.#categoryElement.textContent = typeof newCategory === "string" ? newCategory : "";
+  #handleName(newName) {
+    this.#nameElement.textContent = typeof newName === "string" ? newName : "";
   }
 
   #handleScore(newScore) {
@@ -93,7 +105,7 @@ class WebCardCategory extends HTMLElement {
 
   connectedCallback() {
     if (!this.#hasBeenMountedOnce) {
-      this.#upgradeProperty("category");
+      this.#upgradeProperty("name");
       this.#upgradeProperty("score");
       this.#upgradeProperty("icon");
       this.#upgradeProperty("color");
@@ -104,8 +116,8 @@ class WebCardCategory extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
       switch (name) {
-        case "category": {
-          this.#handleCategory(newValue);
+        case "name": {
+          this.#handleName(newValue);
           break;
         }
         case "score": {
