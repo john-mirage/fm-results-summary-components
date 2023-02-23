@@ -128,9 +128,6 @@
       .text--on-secondary {
         color: var(--color-on-secondary);
       }
-      .text--on-category {
-        color: var(--_card-category-color);
-      }
       .text--on-surface {
         color: var(--color-on-surface);
       }
@@ -263,6 +260,7 @@
         padding-right: 16px;
         border-radius: 12px;
         background-color: var(--_category-background-color);
+        color: var(--_category-color);
       }
       .category[data-color="red"] {
         --_category-color-hue: 0;
@@ -428,16 +426,14 @@
         .card__button {
           margin-top: auto;
         }
-        .performance__name {
-          margin-bottom: 14px;
+        .performance {
+          gap: 14px;
         }
         .score {
           margin-bottom: 28px;
+          gap: 4px;
           width: 200px;
           height: 200px;
-        }
-        .score__value {
-          margin-bottom: 4px;
         }
       }
       @media screen and (hover: hover) {
@@ -457,7 +453,7 @@
       <div class="card__section card__section--result">
         <h1 class="text text--title-medium text--on-primary-variant card__title">Your result</h1>
         <div class="score">
-          <p class="score__value text text--display-large text--on-primary" data-js="score"></p>
+          <p class="score__value text text--display-large text--on-primary" data-js="global-score"></p>
           <p class="score__max-value text text--label-medium text--on-primary-variant">of 100</p>
         </div>
         <div class="performance">
@@ -470,46 +466,46 @@
         <ul class="card__list">
           <li class="category" data-js="category">
             <div class="category__section category__section--left">
-              <div class="category__icon-container" data-js="icon"></div>
-              <p class="category__name text text--body-large text--on-category" data-js="name"></p>
+              <div class="category__icon-container" data-js="category-icon-container"></div>
+              <p class="category__name text text--body-large text--on-category" data-js="category-name"></p>
             </div>
             <div class="category__section category__section--right">
-              <p class="category__score-value text text--label-medium text--on-surface" data-js="score"></p>
+              <p class="category__score-value text text--label-medium text--on-surface" data-js="category-score"></p>
               <p class="category__score-max-value text text--label-medium text--on-surface-variant">/ 100</p>
             </div>
           </li>
           <li class="category" data-js="category">
             <div class="category__section category__section--left">
-              <div class="category__icon-container" data-js="icon"></div>
-              <p class="category__name text text--body-large text--on-category" data-js="name"></p>
+              <div class="category__icon-container" data-js="category-icon-container"></div>
+              <p class="category__name text text--body-large text--on-category" data-js="category-name"></p>
             </div>
             <div class="category__section category__section--right">
-              <p class="category__score-value text text--label-medium text--on-surface" data-js="score"></p>
+              <p class="category__score-value text text--label-medium text--on-surface" data-js="category-score"></p>
               <p class="category__score-max-value text text--label-medium text--on-surface-variant">/ 100</p>
             </div>
           </li>
           <li class="category" data-js="category">
             <div class="category__section category__section--left">
-              <div class="category__icon-container" data-js="icon"></div>
-              <p class="category__name text text--body-large text--on-category" data-js="name"></p>
+              <div class="category__icon-container" data-js="category-icon-container"></div>
+              <p class="category__name text text--body-large text--on-category" data-js="category-name"></p>
             </div>
             <div class="category__section category__section--right">
-              <p class="category__score-value text text--label-medium text--on-surface" data-js="score"></p>
+              <p class="category__score-value text text--label-medium text--on-surface" data-js="category-score"></p>
               <p class="category__score-max-value text text--label-medium text--on-surface-variant">/ 100</p>
             </div>
           </li>
           <li class="category" data-js="category">
             <div class="category__section category__section--left">
-              <div class="category__icon-container" data-js="icon"></div>
-              <p class="category__name text text--body-large text--on-category" data-js="name"></p>
+              <div class="category__icon-container" data-js="category-icon-container"></div>
+              <p class="category__name text text--body-large text--on-category" data-js="category-name"></p>
             </div>
             <div class="category__section category__section--right">
-              <p class="category__score-value text text--label-medium text--on-surface" data-js="score"></p>
+              <p class="category__score-value text text--label-medium text--on-surface" data-js="category-score"></p>
               <p class="category__score-max-value text text--label-medium text--on-surface-variant">/ 100</p>
             </div>
           </li>
         </ul>
-        <button class="button card__button" disabled>
+        <button class="button card__button" data-js="button" disabled>
           <span class="button__overlay"></span>
           <span class="button__label text text--label-large text--on-secondary">Continue</span>
         </button>

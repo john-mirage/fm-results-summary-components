@@ -1,21 +1,29 @@
 class FmResultsSummary extends HTMLElement {
   #hasBeenMountedOnce = false;
-  #categories = [];
   #iconMap = new Map();
+  #data;
+  #categoryElements;
+  #globalScoreElement;
+  #performanceNameElement;
+  #performanceValueElement;
+  #buttonElement;
 
   constructor() {
     super();
     const template = document.getElementById("template-fm-results-summary");
-    const shadowRoot = this.attachShadow({ mode: "open" });
-    shadowRoot.append(template.content.cloneNode(true));
-    //this.#webCardScore = shadowRoot.querySelector("web-card-score");
-    //this.#webCardCategories = shadowRoot.querySelectorAll("web-card-category");
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.append(template.content.cloneNode(true));
+    this.#categoryElements = this.shadowRoot.querySelectorAll('[data-js="category"]');
+    this.#globalScoreElement = this.shadowRoot.querySelector('[data-js="global-score"]');
+    this.#performanceNameElement = this.shadowRoot.querySelector('[data-js="performance-name"]');
+    this.#performanceValueElement = this.shadowRoot.querySelector('[data-js="performance-value"]');
+    this.#buttonElement = this.shadowRoot.querySelector('[data-js="button"]');
   }
 
   #getIcon(iconName) {
     if (typeof iconName === "string") {
       if (!this.#iconMap.has(iconName)) {
-        const template = document.getElementById(`template-icon-${iconName}`);
+        const template = this.shadowRoot.getElementById(`template-category-${iconName}-icon`);
         if (template) {
           this.#iconMap.set(iconName, template.content.cloneNode(true));
         } else {
@@ -27,12 +35,6 @@ class FmResultsSummary extends HTMLElement {
       throw new TypeError("The icon name is not a string");
     }
   }
-
-  /*
-  #handleIcon(newIcon) {
-    this.#iconElement.replaceChildren(typeof newIcon === "string" ? this.#getIcon(newIcon) : undefined);
-  }
-  */
 
   #categoryIsValid(category) {
     return (
@@ -53,47 +55,113 @@ class FmResultsSummary extends HTMLElement {
     );
   }
 
-  /*
-  #handleCategories(newCategories) {
-    if (newCategories) {
-      this.#webCardCategories.forEach((webCardCategory, index) => {
-        webCardCategory.name = newCategories[index].name;
-        webCardCategory.score = String(newCategories[index].score);
-        webCardCategory.icon = newCategories[index].icon;
-        webCardCategory.color = newCategories[index].color;
+  #resultIsValid(result) {
+    return (
+      typeof result === "number" &&
+      result >= 0 &&
+      result <= 100
+    );
+  }
+
+  #resultsAreValid(results) {
+    return (
+      Array.isArray(results) &&
+      results.every(this.#resultIsValid)
+    );
+  }
+
+  #dataAreValid(data) {
+    return (
+      data.hasOwnProperty("categories") &&
+      data.hasOwnProperty("results") &&
+      this.#categoriesAreValid(data.categories) &&
+      this.#resultsAreValid(data.results)
+    );
+  }
+
+  #handleCategories() {
+    if (this.data) {
+      this.#categoryElements.forEach((categoryElement, categoryIndex) => {
+        const iconContainerElement = categoryElement.querySelector('[data-js="category-icon-container"]');
+        const iconElement = this.#getIcon(this.data.categories[categoryIndex].icon);
+        const nameElement = categoryElement.querySelector('[data-js="category-name"]');
+        const scoreElement = categoryElement.querySelector('[data-js="category-score"]');
+        iconContainerElement.replaceChildren(iconElement);
+        nameElement.textContent = this.data.categories[categoryIndex].name;
+        scoreElement.textContent = String(this.data.categories[categoryIndex].score);
+        categoryElement.dataset.color = this.data.categories[categoryIndex].color;
       });
     } else {
-      this.#webCardCategories.forEach((webCardCategory) => {
-        webCardCategory.name = undefined;
-        webCardCategory.score = undefined;
-        webCardCategory.icon = undefined;
-        webCardCategory.color = undefined;
+      this.#categoryElements.forEach((categoryElement) => {
+        const iconContainerElement = categoryElement.querySelector('[data-js="category-icon-container"]');
+        const nameElement = categoryElement.querySelector('[data-js="category-name"]');
+        const scoreElement = categoryElement.querySelector('[data-js="category-score"]');
+        iconContainerElement.replaceChildren();
+        nameElement.textContent = "";
+        scoreElement.textContent = "";
+        categoryElement.removeAttribute("data-color");
       });
     }
   }
-
-  #handleScore(newCategories) {
-    if (newCategories) {
-      const sum = newCategories.reduce((acc, cur) => acc + cur.score, 0);
-      const average = Math.round(sum / newCategories.length);
-      this.#webCardScore.score = String(average);
+  
+  #getPerformanceName(score) {
+    if (typeof score === "number") {
+      if (score <= 50) {
+        return "Not bad";
+      } else if (score <= 80) {
+        return "Great";
+      } else if (score <= 100) {
+        return "Impressive";
+      } else {
+        throw new Error("The score cannot be higher than 100");
+      }
     } else {
-      this.#webCardScore.score = undefined;
+      throw new TypeError("The score is not a number");
     }
   }
-  */
 
-  get categories() {
-    return this.#categories;
+  #handlePerformance(score) {
+    if (this.data && typeof score === "number") {
+      const numberOfPeople = this.data.results.length;
+      const numberOfPeopleBelowScore = this.data.results.filter((result) => result < score).length;
+      const percentage = Math.round((numberOfPeopleBelowScore * 100) / numberOfPeople);
+      this.#performanceNameElement.textContent = this.#getPerformanceName(percentage);
+      this.#performanceValueElement.textContent = `Your performance exceed ${String(percentage)}% of the people conducting the test here!`;
+    } else {
+      this.#performanceNameElement.textContent = "";
+      this.#performanceValueElement.textContent = "";
+    }
   }
 
-  set categories(newCategories) {
-    if (this.#categoriesAreValid(newCategories)) {
-      //this.#handleCategories(newCategories);
-      //this.#handleScore(newCategories);
+  #handleScore() {
+    if (this.data) {
+      const sum = this.data.categories.reduce((acc, cur) => acc + cur.score, 0);
+      const average = Math.round(sum / this.data.categories.length);
+      this.#globalScoreElement.textContent = String(average);
+      return average;
     } else {
-      //this.#handleCategories();
-      //this.#handleScore();
+      this.#globalScoreElement.textContent = "";
+      return undefined;
+    }
+  }
+
+  get data() {
+    return this.#data;
+  }
+
+  set data(newData) {
+    if (this.#dataAreValid(newData)) {
+      this.#data = newData;
+      this.#handleCategories();
+      const score = this.#handleScore();
+      this.#handlePerformance(score);
+      this.#buttonElement.removeAttribute("disabled");
+    } else {
+      this.#data = undefined;
+      this.#handleCategories();
+      const score = this.#handleScore();
+      this.#handlePerformance(score);
+      this.#buttonElement.setAttribute("disabled", "");
     }
   }
 
@@ -107,7 +175,7 @@ class FmResultsSummary extends HTMLElement {
 
   connectedCallback() {
     if (!this.#hasBeenMountedOnce) {
-      this.#upgradeProperty("categories");
+      this.#upgradeProperty("data");
       this.#hasBeenMountedOnce = true;
     }
   }

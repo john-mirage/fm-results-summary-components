@@ -1,26 +1,43 @@
-[
-  {
-    "name": "Reaction",
-    "score": 80,
-    "icon": "reaction",
-    "color": "red"
-  },
-  {
-    "name": "Memory",
-    "score": 92,
-    "icon": "memory",
-    "color": "yellow"
-  },
-  {
-    "name": "Verbal",
-    "score": 61,
-    "icon": "verbal",
-    "color": "green"
-  },
-  {
-    "name": "Visual",
-    "score": 72,
-    "icon": "visual",
-    "color": "blue"
-  }
-]
+{
+  "categories": [
+    {
+      "name": "Reaction",
+      "score": 80,
+      "icon": "reaction",
+      "color": "red"
+    },
+    {
+      "name": "Memory",
+      "score": 92,
+      "icon": "memory",
+      "color": "yellow"
+    },
+    {
+      "name": "Verbal",
+      "score": 61,
+      "icon": "verbal",
+      "color": "green"
+    },
+    {
+      "name": "Visual",
+      "score": 72,
+      "icon": "visual",
+      "color": "blue"
+    }
+  ],
+  "results": [
+    76,
+    56,
+    78,
+    96,
+    92,
+    84,
+    86,
+    48,
+    65,
+    57,
+    53,
+    91,
+    82
+  ]
+}
