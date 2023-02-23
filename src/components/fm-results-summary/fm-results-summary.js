@@ -14,10 +14,10 @@ class FmResultsSummary extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.append(template.content.cloneNode(true));
     this.#categoryElements = this.shadowRoot.querySelectorAll('[data-js="category"]');
-    this.#globalScoreElement = this.shadowRoot.querySelector('[data-js="global-score"]');
-    this.#performanceNameElement = this.shadowRoot.querySelector('[data-js="performance-name"]');
-    this.#performanceValueElement = this.shadowRoot.querySelector('[data-js="performance-value"]');
-    this.#buttonElement = this.shadowRoot.querySelector('[data-js="button"]');
+    this.#globalScoreElement = this.shadowRoot.getElementById("global-score");
+    this.#performanceNameElement = this.shadowRoot.getElementById("performance-name");
+    this.#performanceValueElement = this.shadowRoot.getElementById("performance-value");
+    this.#buttonElement = this.shadowRoot.getElementById("button");
   }
 
   #getIcon(iconName) {
@@ -83,9 +83,9 @@ class FmResultsSummary extends HTMLElement {
     if (this.data) {
       this.#categoryElements.forEach((categoryElement, categoryIndex) => {
         const iconContainerElement = categoryElement.querySelector('[data-js="category-icon-container"]');
-        const iconElement = this.#getIcon(this.data.categories[categoryIndex].icon);
         const nameElement = categoryElement.querySelector('[data-js="category-name"]');
         const scoreElement = categoryElement.querySelector('[data-js="category-score"]');
+        const iconElement = this.#getIcon(this.data.categories[categoryIndex].icon);
         iconContainerElement.replaceChildren(iconElement);
         nameElement.textContent = this.data.categories[categoryIndex].name;
         scoreElement.textContent = String(this.data.categories[categoryIndex].score);

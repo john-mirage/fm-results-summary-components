@@ -453,12 +453,12 @@
       <div class="card__section card__section--result">
         <h1 class="text text--title-medium text--on-primary-variant card__title">Your result</h1>
         <div class="score">
-          <p class="score__value text text--display-large text--on-primary" data-js="global-score"></p>
+          <p class="score__value text text--display-large text--on-primary" id="global-score"></p>
           <p class="score__max-value text text--label-medium text--on-primary-variant">of 100</p>
         </div>
         <div class="performance">
-          <h2 class="performance__name text text--title-large text--on-primary" data-js="performance-name"></h2>
-          <p class="performance__value text text--body-large text--on-primary-variant" data-js="performance-value"></p>
+          <h2 class="performance__name text text--title-large text--on-primary" id="performance-name"></h2>
+          <p class="performance__value text text--body-large text--on-primary-variant" id="performance-value"></p>
         </div>
       </div>
       <div class="card__section card__section--summary">
@@ -505,7 +505,7 @@
             </div>
           </li>
         </ul>
-        <button class="button card__button" data-js="button" disabled>
+        <button class="button card__button" id="button" disabled>
           <span class="button__overlay"></span>
           <span class="button__label text text--label-large text--on-secondary">Continue</span>
         </button>
