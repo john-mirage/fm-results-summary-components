@@ -169,6 +169,17 @@
       .card__title {
         margin-bottom: 24px;
       }
+      .card__list {
+        margin: 0 0 24px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 16px;
+        width: 100%;
+        padding: 0;
+        list-style: none;
+      }
       .performance {
         display: flex;
         flex-direction: column;
@@ -188,7 +199,7 @@
         animation: var(--_skeleton-animation);
       }
       .performance__value:empty::before {
-        content: "Your performance exceed 100% of the people conducting the test here!";
+        content: "Your performance exceed 00% of the people conducting the test here!";
         display: inline;
         color: transparent;
         background-color: var(--color-outline-on-primary);
@@ -197,17 +208,6 @@
         -webkit-box-decoration-break: clone;
         user-select: none;
         animation: var(--_skeleton-animation);
-      }
-      .card__list {
-        margin: 0 0 24px 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        gap: 16px;
-        width: 100%;
-        padding: 0;
-        list-style: none;
       }
       .score {
         box-sizing: border-box;
