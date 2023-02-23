@@ -1,17 +1,38 @@
-class WebCard extends HTMLElement {
+class FmResultsSummary extends HTMLElement {
   #hasBeenMountedOnce = false;
   #categories = [];
-  #webCardScore;
-  #webCardCategories;
+  #iconMap = new Map();
 
   constructor() {
     super();
-    const template = document.getElementById("template-web-card");
+    const template = document.getElementById("template-fm-results-summary");
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.append(template.content.cloneNode(true));
-    this.#webCardScore = shadowRoot.querySelector("web-card-score");
-    this.#webCardCategories = shadowRoot.querySelectorAll("web-card-category");
+    //this.#webCardScore = shadowRoot.querySelector("web-card-score");
+    //this.#webCardCategories = shadowRoot.querySelectorAll("web-card-category");
   }
+
+  #getIcon(iconName) {
+    if (typeof iconName === "string") {
+      if (!this.#iconMap.has(iconName)) {
+        const template = document.getElementById(`template-icon-${iconName}`);
+        if (template) {
+          this.#iconMap.set(iconName, template.content.cloneNode(true));
+        } else {
+          throw new Error(`The icon template for ${iconName} do not exist`);
+        }
+      }
+      return this.#iconMap.get(iconName);
+    } else {
+      throw new TypeError("The icon name is not a string");
+    }
+  }
+
+  /*
+  #handleIcon(newIcon) {
+    this.#iconElement.replaceChildren(typeof newIcon === "string" ? this.#getIcon(newIcon) : undefined);
+  }
+  */
 
   #categoryIsValid(category) {
     return (
@@ -32,6 +53,7 @@ class WebCard extends HTMLElement {
     );
   }
 
+  /*
   #handleCategories(newCategories) {
     if (newCategories) {
       this.#webCardCategories.forEach((webCardCategory, index) => {
@@ -59,6 +81,7 @@ class WebCard extends HTMLElement {
       this.#webCardScore.score = undefined;
     }
   }
+  */
 
   get categories() {
     return this.#categories;
@@ -66,11 +89,11 @@ class WebCard extends HTMLElement {
 
   set categories(newCategories) {
     if (this.#categoriesAreValid(newCategories)) {
-      this.#handleCategories(newCategories);
-      this.#handleScore(newCategories);
+      //this.#handleCategories(newCategories);
+      //this.#handleScore(newCategories);
     } else {
-      this.#handleCategories();
-      this.#handleScore();
+      //this.#handleCategories();
+      //this.#handleScore();
     }
   }
 
@@ -90,4 +113,4 @@ class WebCard extends HTMLElement {
   }
 }
 
-export default WebCard;
+export default FmResultsSummary;

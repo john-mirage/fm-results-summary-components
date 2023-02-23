@@ -1,17 +1,11 @@
 import "./main.css";
 import data from "./data/data.json";
 
-import WebCard from "./components/web-card";
-import WebCardCategory from "./components/web-card-category";
-import WebCardButton from "./components/web-card-button";
-import WebCardScore from "./components/web-card-score";
+import FmResultsSummary from "./components/fm-results-summary";
 
-customElements.define("web-card", WebCard);
-customElements.define("web-card-score", WebCardScore);
-customElements.define("web-card-category", WebCardCategory);
-customElements.define("web-card-button", WebCardButton);
+customElements.define("fm-results-summary", FmResultsSummary);
 
-const webCard = document.querySelector("web-card");
-if (webCard) {
-  setTimeout(() => webCard.categories = data, 2000);
+const fmResultsSummary = document.querySelector("fm-results-summary");
+if (fmResultsSummary) {
+  //setTimeout(() => fmResultsSummary.categories = data, 2000);
 }

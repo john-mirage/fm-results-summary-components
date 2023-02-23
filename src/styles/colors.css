@@ -9,6 +9,7 @@
   --color-gray: hsl(236, 8%, 63%);
   --color-light-gray: hsl(236, 8%, 86%);
   --color-shadow: hsla(224, 82%, 58%, 15%);
+  --color-moderate-blue: hsl(241, 81%, 66%);
 
   --color-background: var(--color-very-light-blue);
   --color-surface: var(--color-white);
@@ -22,4 +23,5 @@
   --color-on-secondary: var(--color-white);
   --color-on-secondary-variant: var(--color-light-blue);
   --color-outline: var(--color-light-gray);
+  --color-outline-on-primary: var(--color-moderate-blue);
 }
