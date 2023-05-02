@@ -1,3 +1,9 @@
+import globalSheet from "@styles/globals";
+import colorSheet from "@styles/colors";
+import fontSheet from "@styles/fonts";
+import componentSheet from "./fm-results-summary.style";
+import componentTemplate from "./fm-results-summary.template";
+
 class FmResultsSummary extends HTMLElement {
   #hasBeenMountedOnce = false;
   #iconMap = new Map();
@@ -10,14 +16,14 @@ class FmResultsSummary extends HTMLElement {
 
   constructor() {
     super();
-    const template = document.getElementById("template-fm-results-summary");
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.append(template.content.cloneNode(true));
-    this.#categoryElements = this.shadowRoot.querySelectorAll('[data-js="category"]');
-    this.#globalScoreElement = this.shadowRoot.getElementById("global-score");
-    this.#performanceNameElement = this.shadowRoot.getElementById("performance-name");
-    this.#performanceValueElement = this.shadowRoot.getElementById("performance-value");
-    this.#buttonElement = this.shadowRoot.getElementById("button");
+    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.append(componentTemplate.content.cloneNode(true));
+    shadowRoot.adoptedStyleSheets = [globalSheet, colorSheet, fontSheet, componentSheet];
+    this.#categoryElements = shadowRoot.querySelectorAll('[data-js="category"]');
+    this.#globalScoreElement = shadowRoot.getElementById("global-score");
+    this.#performanceNameElement = shadowRoot.getElementById("performance-name");
+    this.#performanceValueElement = shadowRoot.getElementById("performance-value");
+    this.#buttonElement = shadowRoot.getElementById("button");
   }
 
   #getIcon(iconName) {
@@ -48,26 +54,15 @@ class FmResultsSummary extends HTMLElement {
   }
 
   #categoriesAreValid(categories) {
-    return (
-      Array.isArray(categories) &&
-      categories.length === 4 &&
-      categories.every(this.#categoryIsValid)
-    );
+    return Array.isArray(categories) && categories.length === 4 && categories.every(this.#categoryIsValid);
   }
 
   #resultIsValid(result) {
-    return (
-      typeof result === "number" &&
-      result >= 0 &&
-      result <= 100
-    );
+    return typeof result === "number" && result >= 0 && result <= 100;
   }
 
   #resultsAreValid(results) {
-    return (
-      Array.isArray(results) &&
-      results.every(this.#resultIsValid)
-    );
+    return Array.isArray(results) && results.every(this.#resultIsValid);
   }
 
   #dataAreValid(data) {
@@ -103,7 +98,7 @@ class FmResultsSummary extends HTMLElement {
       });
     }
   }
-  
+
   #getPerformanceName(score) {
     if (typeof score === "number") {
       if (score <= 50) {
@@ -126,7 +121,9 @@ class FmResultsSummary extends HTMLElement {
       const numberOfPeopleBelowScore = this.data.results.filter((result) => result < score).length;
       const percentage = Math.round((numberOfPeopleBelowScore * 100) / numberOfPeople);
       this.#performanceNameElement.textContent = this.#getPerformanceName(percentage);
-      this.#performanceValueElement.textContent = `Your performance exceed ${String(percentage)}% of the people conducting the test here!`;
+      this.#performanceValueElement.textContent = `Your performance exceed ${String(
+        percentage
+      )}% of the people conducting the test here!`;
     } else {
       this.#performanceNameElement.textContent = "";
       this.#performanceValueElement.textContent = "";

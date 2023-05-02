@@ -1,0 +1,32 @@
+const colorSheet = new CSSStyleSheet();
+
+colorSheet.replaceSync(`
+  :host {
+    --color-very-light-blue: hsl(221, 100%, 96%);
+    --color-light-blue: hsl(241, 100%, 89%);
+    --color-blue: hsl(241, 81%, 54%);
+    --color-purple: hsl(252, 100%, 67%);
+    --color-white: hsl(0, 0%, 100%);
+    --color-dark-navy: hsl(224, 30%, 27%);
+    --color-dark-blue: hsl(256, 72%, 46%);
+    --color-gray: hsl(236, 8%, 63%);
+    --color-light-gray: hsl(236, 8%, 86%);
+    --color-shadow: hsla(224, 82%, 58%, 15%);
+    --color-moderate-blue: hsl(241, 81%, 66%);
+
+    --color-surface: var(--color-white);
+    --color-on-surface: var(--color-dark-navy);
+    --color-on-surface-variant: var(--color-gray);
+    --color-primary: linear-gradient(to bottom, var(--color-purple), var(--color-blue));
+    --color-primary-variant: linear-gradient(to bottom, var(--color-dark-blue), transparent);
+    --color-on-primary: var(--color-white);
+    --color-on-primary-variant: var(--color-light-blue);
+    --color-secondary: var(--color-dark-navy);
+    --color-on-secondary: var(--color-white);
+    --color-on-secondary-variant: var(--color-light-blue);
+    --color-outline: var(--color-light-gray);
+    --color-outline-on-primary: var(--color-moderate-blue);
+  }
+`);
+
+export default colorSheet;

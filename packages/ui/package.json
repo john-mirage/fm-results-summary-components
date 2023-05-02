@@ -1,0 +1,25 @@
+{
+  "name": "ui",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "./dist/main.js",
+  "module": "./dist/main.mjs",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "dev": "tsup src/main.js --format esm,cjs --watch",
+    "build": "tsup src/main.js --format esm,cjs",
+    "clean": "rm -rf .turbo && rm -rf dist",
+    "wait": "wait-on dist/main.js"
+  },
+  "devDependencies": {
+    "tsup": "^6.7.0",
+    "wait-on": "^7.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
