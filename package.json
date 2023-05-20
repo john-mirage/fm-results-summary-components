@@ -1,12 +1,14 @@
 {
+  "name": "fm-results-summary-components",
   "private": true,
+  "version": "0.0.1",
+  "type": "module",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "turbo": "latest"
-  },
-  "packageManager": "pnpm@7.15.0",
-  "name": "frontend-mentor-results-summary-component"
+    "vite": "^4.3.8"
+  }
 }

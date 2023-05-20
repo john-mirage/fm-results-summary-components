@@ -18,18 +18,29 @@ class FmResultsSummary extends HTMLElement {
     super();
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.append(componentTemplate.content.cloneNode(true));
-    shadowRoot.adoptedStyleSheets = [globalSheet, colorSheet, fontSheet, componentSheet];
-    this.#categoryElements = shadowRoot.querySelectorAll('[data-js="category"]');
+    shadowRoot.adoptedStyleSheets = [
+      globalSheet,
+      colorSheet,
+      fontSheet,
+      componentSheet,
+    ];
+    this.#categoryElements = shadowRoot.querySelectorAll(
+      '[data-js="category"]'
+    );
     this.#globalScoreElement = shadowRoot.getElementById("global-score");
-    this.#performanceNameElement = shadowRoot.getElementById("performance-name");
-    this.#performanceValueElement = shadowRoot.getElementById("performance-value");
+    this.#performanceNameElement =
+      shadowRoot.getElementById("performance-name");
+    this.#performanceValueElement =
+      shadowRoot.getElementById("performance-value");
     this.#buttonElement = shadowRoot.getElementById("button");
   }
 
   #getIcon(iconName) {
     if (typeof iconName === "string") {
       if (!this.#iconMap.has(iconName)) {
-        const template = this.shadowRoot.getElementById(`template-category-${iconName}-icon`);
+        const template = this.shadowRoot.getElementById(
+          `template-category-${iconName}-icon`
+        );
         if (template) {
           this.#iconMap.set(iconName, template.content.cloneNode(true));
         } else {
@@ -54,7 +65,11 @@ class FmResultsSummary extends HTMLElement {
   }
 
   #categoriesAreValid(categories) {
-    return Array.isArray(categories) && categories.length === 4 && categories.every(this.#categoryIsValid);
+    return (
+      Array.isArray(categories) &&
+      categories.length === 4 &&
+      categories.every(this.#categoryIsValid)
+    );
   }
 
   #resultIsValid(result) {
@@ -77,20 +92,37 @@ class FmResultsSummary extends HTMLElement {
   #handleCategories() {
     if (this.data) {
       this.#categoryElements.forEach((categoryElement, categoryIndex) => {
-        const iconContainerElement = categoryElement.querySelector('[data-js="category-icon-container"]');
-        const nameElement = categoryElement.querySelector('[data-js="category-name"]');
-        const scoreElement = categoryElement.querySelector('[data-js="category-score"]');
-        const iconElement = this.#getIcon(this.data.categories[categoryIndex].icon);
+        const iconContainerElement = categoryElement.querySelector(
+          '[data-js="category-icon-container"]'
+        );
+        const nameElement = categoryElement.querySelector(
+          '[data-js="category-name"]'
+        );
+        const scoreElement = categoryElement.querySelector(
+          '[data-js="category-score"]'
+        );
+        const iconElement = this.#getIcon(
+          this.data.categories[categoryIndex].icon
+        );
         iconContainerElement.replaceChildren(iconElement);
         nameElement.textContent = this.data.categories[categoryIndex].name;
-        scoreElement.textContent = String(this.data.categories[categoryIndex].score);
-        categoryElement.dataset.color = this.data.categories[categoryIndex].color;
+        scoreElement.textContent = String(
+          this.data.categories[categoryIndex].score
+        );
+        categoryElement.dataset.color =
+          this.data.categories[categoryIndex].color;
       });
     } else {
       this.#categoryElements.forEach((categoryElement) => {
-        const iconContainerElement = categoryElement.querySelector('[data-js="category-icon-container"]');
-        const nameElement = categoryElement.querySelector('[data-js="category-name"]');
-        const scoreElement = categoryElement.querySelector('[data-js="category-score"]');
+        const iconContainerElement = categoryElement.querySelector(
+          '[data-js="category-icon-container"]'
+        );
+        const nameElement = categoryElement.querySelector(
+          '[data-js="category-name"]'
+        );
+        const scoreElement = categoryElement.querySelector(
+          '[data-js="category-score"]'
+        );
         iconContainerElement.replaceChildren();
         nameElement.textContent = "";
         scoreElement.textContent = "";
@@ -118,9 +150,14 @@ class FmResultsSummary extends HTMLElement {
   #handlePerformance(score) {
     if (this.data && typeof score === "number") {
       const numberOfPeople = this.data.results.length;
-      const numberOfPeopleBelowScore = this.data.results.filter((result) => result < score).length;
-      const percentage = Math.round((numberOfPeopleBelowScore * 100) / numberOfPeople);
-      this.#performanceNameElement.textContent = this.#getPerformanceName(percentage);
+      const numberOfPeopleBelowScore = this.data.results.filter(
+        (result) => result < score
+      ).length;
+      const percentage = Math.round(
+        (numberOfPeopleBelowScore * 100) / numberOfPeople
+      );
+      this.#performanceNameElement.textContent =
+        this.#getPerformanceName(percentage);
       this.#performanceValueElement.textContent = `Your performance exceed ${String(
         percentage
       )}% of the people conducting the test here!`;
@@ -177,5 +214,7 @@ class FmResultsSummary extends HTMLElement {
     }
   }
 }
+
+customElements.define("fm-results-summary", FmResultsSummary);
 
 export default FmResultsSummary;
