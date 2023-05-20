@@ -1,8 +1,14 @@
 import "./main.css";
 import data from "@data/data.json";
-import "@components/fm-results-summary";
+import "@components/rsc-app";
+import "@components/rsc-text";
 
-const fmResultsSummary = document.querySelector("fm-results-summary");
-if (fmResultsSummary) {
-  setTimeout(() => (fmResultsSummary.data = data), 3000);
+const rscApp = document.querySelector("rsc-app");
+const rscText = document.querySelector("rsc-text");
+
+if (rscApp) {
+  setTimeout(() => {
+    rscApp.data = data;
+    rscText.variant = "label-large";
+  }, 3000);
 }

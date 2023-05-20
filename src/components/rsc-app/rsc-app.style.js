@@ -24,7 +24,7 @@ componentSheet.replaceSync(`
     justify-content: center;
     width: 100%;
     container-type: inline-size;
-    container-name: web-card;
+    container-name: rsc-app;
   }
   .text {
     --text-font-family: var(--font-stack);
