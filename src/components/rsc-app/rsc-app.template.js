@@ -57,9 +57,10 @@ componentTemplate.innerHTML = `
           </div>
         </li>
       </ul>
-      <rsc-button disabled class="card__button">
-        <rsc-text variant="label-large" color="on-secondary">Continue</rsc-text>
-      </rsc-button>
+      <button class="button card__button" id="button" disabled>
+        <span class="button__overlay"></span>
+        <span class="button__label text text--label-large text--on-secondary">Continue</span>
+      </button>
     </div>
   </div>
   <template id="template-category-reaction-icon">

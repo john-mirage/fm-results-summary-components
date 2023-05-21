@@ -24,7 +24,7 @@ class RscApp extends HTMLElement {
       shadowRoot.getElementById("performance-name");
     this.#performanceValueElement =
       shadowRoot.getElementById("performance-value");
-    this.#buttonElement = shadowRoot.querySelector("rsc-button");
+    this.#buttonElement = shadowRoot.getElementById("button");
   }
 
   #getIcon(iconName) {
@@ -181,13 +181,13 @@ class RscApp extends HTMLElement {
       this.#handleCategories();
       const score = this.#handleScore();
       this.#handlePerformance(score);
-      this.#buttonElement.disabled = false;
+      this.#buttonElement.removeAttribute("disabled");
     } else {
       this.#data = undefined;
       this.#handleCategories();
       const score = this.#handleScore();
       this.#handlePerformance(score);
-      this.#buttonElement.disabled = true;
+      this.#buttonElement.setAttribute("disabled", "");
     }
   }
 
