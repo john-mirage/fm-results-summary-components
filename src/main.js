@@ -7,5 +7,5 @@ const rscApp = document.querySelector("rsc-app");
 if (rscApp) {
   setTimeout(() => {
     rscApp.data = data;
-  }, 3000);
+  }, 1000);
 }
