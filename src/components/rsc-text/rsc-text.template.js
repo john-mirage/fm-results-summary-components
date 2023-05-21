@@ -1,7 +1,7 @@
 const componentTemplate = document.createElement("template");
 
 componentTemplate.innerHTML = `
-  <slot></slot>
+  <slot class="text"></slot>
 `;
 
 export default componentTemplate;
