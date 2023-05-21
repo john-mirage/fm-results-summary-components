@@ -6,15 +6,16 @@ componentSheet.replaceSync(`
   :host {
     --_button-width: 100%;
     --_button-height: ${pxToRem(56)};
-    --_button-padding: ${pxToRem(8)} ${pxToRem(16)};
+    --_button-padding: ${pxToRem(8)} ${pxToRem(24)};
     --_button-border-radius: 9999px;
     --_button-background-color: var(--color-secondary);
     --_button-overlay-background-color: var(--color-primary);
 
-    display: inline-block;
+    display: block;
+    width: 100%;
   }
 
-  .button {
+  button {
     position: relative;
     width: var(--_button-width);
     min-height: var(--_button-height);
@@ -25,38 +26,39 @@ componentSheet.replaceSync(`
     border: none;
   }
 
-  .button:disabled {
+  button:disabled {
     cursor: not-allowed;
   }
 
-  .button:not(:disabled) {
+  button:not(:disabled) {
     cursor: pointer;
   }
   
-  .button__overlay {
-    display: block;
+  span {
     position: absolute;
     z-index: 10;
     inset: 0;
+    display: block;
     visibility: hidden;
     opacity: 0;
     background: var(--_button-overlay-background-color);
   }
 
-  .button__label {
+  slot {
     position: relative;
     z-index: 20;
+    display: block;
   }
 
   @media screen and (hover: hover) {
-    .button:not(:disabled):hover .button__overlay {
+    button:not(:disabled):hover span {
       visibility: visible;
       opacity: 1;
     }
   }
 
   @media screen and (prefers-reduced-motion: no-preference) {
-    .button__overlay {
+    span {
       transition-property: visibility, opacity;
       transition-duration: 150ms;
     }
